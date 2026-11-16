@@ -1,0 +1,20 @@
+body {
+    background-color: rgb(44, 218, 31);
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: darkblue;
+    text-align: center;
+}
+
+input, select, textarea {
+    margin-bottom: 3px;
+    border-radius: 6px;
+    
+}
+
+textarea {
+    vertical-align: middle;
+    color: blueviolet;
+}

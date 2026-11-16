@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Jan Walendowski Formularz</h1>
+    <form>
+        <div>
+            <label for="imie">Imię</label>
+            <input type="text" id="imie" name="imie" placeholder="np. Anna Michał" required>
+            <span id="imiebrak" style="color:red ; font-size:0.9em;"></span>
+        </div>
+        <div>
+            <label for="nazwisko">Nazwisko</label>
+            <input type="text" id="nazwisko" name="nazwisko" placeholder="np. Kowalski" required>
+            <span id="nazwiskobrak" style="color:red ; font-size:0.9em;"></span>
+
+        </div>
+        <div>
+            <label for="e-mail">E-mail</label>
+            <input type="text" id="e-mail" name="e-mail" placeholder="np jankowalski@gmial.com" required>
+            <span id="e_mailbrak" style="color:red ; font-size:0.9em;"></span>
+
+        </div>
+        <div>
+            <label for="kod_pocztowy">Kod Pocztowy</label>
+            <input type="text" name=" kod_pocztowy" id="kod_pocztowy" >
+            <span id="kod_pocztowybrak" ></span>
+        </div> 
+        <div>
+            <label for="miejscowosc">Miejscowość</label>
+            <input type="text" name="miejscowosc" id="miejscowosc" required placeholder="np. Nowa Huta">
+            <span id="miejscowoscbrak" style="color:red ; font-size:0.9em;"></span>
+        </div>
+        <div>
+            <label for="ulica">Ulica</label>
+            <input type="text" name="ulica" id="ulica" required placeholder="np. 3 Maja">
+            <span id="ulicabrak" style="color:red ; font-size:0.9em;" ></span>
+        </div>
+        <div>
+            <label for="numer_domu">Numer Domu</label>
+            <input type="text" name="numer_domu" id="numer_domu" required placeholder="np 15A">
+            <span id="numer_domubrak" style="color:red ; font-size:0.9em;"></span>
+        </div>
+        <div>
+            <label for="wiek">Wiek</label>
+            <input type="text" name="wiek" id="wiek" max="120" min ="18" required>
+            <span id="wiekbrak" style="color:red ; font-size:0.9em;"></span>
+        </div>
+        <div>
+            <label >Płeć:</label>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <label for="kobieta">Kobieta</label>
+                <input type="radio" id="kobieta" name="plec" value="kobieta">
+                 <label for="mezczyzna">Mężczyzna</label>
+                <input type="radio" id="mezczyzna" name="plec"  value="mezczyzna">
+               
+            </div>
+            <span id="plecbrak" style="color:red ; font-size:0.9em;"></span>
+        </div>
+        <div>
+            <label >Rodzeństwo:</label>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <label for="r-tak">Tak</label>
+                <input type="radio" id="r-tak" value="r-tak" name="rodzenstwo">
+                <label for="r-nie">Nie</label>
+                <input type="radio" name="rodzenstwo" id="r-nie" value="r-nie">
+                
+            </div>
+            <span id="rodzenstwobrak" style="color:red ; font-size:0.9em;"></span>
+        </div>
+        <div>
+            <label for="uwagi">Dodatkowe informacje:</label>
+  <textarea id="uwagi" name="uwagi" rows="4" placeholder="Wpisz tutaj swoje uwagi..."></textarea>
+        </div>
+        <button type="submit">Wyślij</button>
+    </form>
+    <script>
+        const imie= document.getElementById("imie");
+        const imiebrak= document.getElementById("imiebrak");
+
+        const nazwisko=document.getElementById("nazwisko");
+        const nazwiskobrak=document.getElementById("nazwiskobrak");
+
+        const email =document.getElementById("e-mail");
+        const e_mailbrak=document.getElementById("e_mailbrak");
+
+        const ulica =document.getElementById("ulica");
+        const ulicabrak =document.getElementById("ulicabrak");
+
+        const kod_pocztowy =document.getElementById("kod_pocztowy");
+        const kod_pocztowybrak =document.getElementById("kod_pocztowybrak");
+
+        const miejscowosc=document.getElementById("miejscowosc");
+        const miejscowoscbrak=document.getElementById("miejscowoscbrak");
+
+        const numer_domu =document.getElementById("numer_domu");
+        const numer_domubrak =document.getElementById("numer_domubrak");
+
+        const wiek =document.getElementById("wiek");
+        const wiekbrak =document.getElementById("wiekbrak");
+
+        const plec =document.getElementById("plec");
+        const plecbrak =document.getElementById("plecbrak");
+
+        const rodzenstwo =document.getElementById("rodzenstwo");
+        const rodzenstwobrak =document.getElementById("rodzenstwobrak");
+        
+        const wzorzec_dla_imienia_nazwiska_ulicy = /^[A-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż\s-]{2,30}$/;    
+        const wzorzec_dla_ulicy = /^[A-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż0-9\s\-]{2,40}$/;
+        const wzorzec_dla_mail =/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        const wzorzec_dla_kodu=/^\d{2}-\d{3}$/;
+        
+        const wzorzec_numerdomu=/^\d+[' ']?[a-zA-Z]?$/;
+        
+        document.addEventListener("submit",function(event){
+            const wybranerodz = document.querySelector('input[name="rodzenstwo"]:checked');
+            if(!wybranerodz){
+                event.preventDefault();
+                rodzenstwobrak.textContent="zaznacz czy masz rodzeństwo";
+            }else{
+                rodzenstwobrak.textContent="";
+            }
+        });
+        document.addEventListener("submit",function(event){
+                    const wybranaPlec = document.querySelector('input[name="plec"]:checked');
+            if (!wybranaPlec) {
+                event.preventDefault();
+                plecbrak.textContent = "Proszę wybrać płeć";
+            } else {
+                plecbrak.textContent = "";
+            }
+        });
+        document.addEventListener("submit",function(event){
+            if(!wzorzec_numerdomu.test(numer_domu.value)){
+                event.preventDefault();
+                 numer_domubrak.textContent="nieprawidlowy numer domu ";
+                numer_domu.style.borderColor="red";
+            }else{
+                numer_domubrak.textContent="";
+                numer_domu.style.borderColor="green";
+            
+            }
+        });
+        document.addEventListener("submit",function(event){
+            const wiekLiczba= Number(wiek.value);
+            if(wiek.value.trim() === ""|| isNaN(wiekLiczba)|| wiekLiczba>100 || wiekLiczba<5){
+                event.preventDefault();
+                wiekbrak.textContent="nieprawidlowy wiek podaj liczbe od 5 do 100";
+                wiek.style.borderColor="red";
+            }else{
+                wiekbrak.textContent="";
+                wiek.style.borderColor="green";
+            }
+        });
+        document.addEventListener("submit",function(event) {
+    
+    
+            if (!wzorzec_dla_kodu.test(kod_pocztowy.value)) {
+                event.preventDefault(); 
+                kod_pocztowybrak.textContent = "Zły format kodu pocztowego. Musi być format 00-000";
+                kod_pocztowy.style.borderColor = "red";
+            } else {
+                kod_pocztowybrak.textContent = ""; 
+                kod_pocztowy.style.borderColor = "green";
+            }
+
+        });
+        document.addEventListener("submit",function(event){
+            if(!wzorzec_dla_mail.test(email.value)){
+                event.preventDefault();
+                e_mailbrak.textContent="e-mail powinien być w formacie ____@___._";
+                email.style.borderColor="red";
+            }else{
+                e_mailbrak.textContent="";
+                email.style.borderColor="green";
+            }
+        });
+        document.addEventListener('submit',function(event) {
+
+           
+            if (!wzorzec_dla_imienia_nazwiska_ulicy.test(imie.value)) {
+                event.preventDefault();
+                imiebrak.textContent = "Wpisz poprawne imię (2-30 liter)";
+                imie.style.borderColor = "red";
+            } else {
+                imiebrak.textContent = "";
+                imie.style.borderColor = "green";
+            }
+
+        });
+        document.addEventListener('submit',function(event) {
+
+           
+            if (!wzorzec_dla_imienia_nazwiska_ulicy.test(nazwisko.value)) {
+                event.preventDefault();
+                nazwiskobrak.textContent = "Wpisz poprawne nazwisko (2-30 liter)";
+                nazwisko.style.borderColor = "red";
+            } else {
+                nazwiskobrak.textContent = "";
+                nazwisko.style.borderColor = "green";
+            }
+
+        });
+        document.addEventListener('submit',function(event) {
+
+           
+            if (!wzorzec_dla_ulicy.test(ulica.value)) {
+                event.preventDefault();
+                ulicabrak.textContent = "nie poprawna nazwa ulicy";
+                ulica.style.borderColor = "red";
+            } else {
+                ulicabrak.textContent = "";
+                ulica.style.borderColor = "green";
+            }
+
+        });
+        document.addEventListener('submit',function(event) {
+
+           
+            if (!wzorzec_dla_imienia_nazwiska_ulicy.test(miejscowosc.value)) {
+                event.preventDefault();
+                miejscowoscbrak.textContent = "Wpisz poprawne nazwę miejscowości";
+                miejscowosc.style.borderColor = "red";
+            } else {
+                miejscowoscbrak.textContent = "";
+                miejscowosc.style.borderColor = "green";
+            }
+
+        });
+      
+    </script>
+</body>
+</html>
